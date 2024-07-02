@@ -1,0 +1,39 @@
+# Variables de compilation
+CC = gcc
+CFLAGS = -Wall -Wextra -O2 -I/opt/homebrew/Cellar/raylib/5.0/include
+LDFLAGS = -L/opt/homebrew/Cellar/raylib/5.0/lib -lraylib -framework OpenGL -framework Cocoa -framework IOKit -lm  # Ajout des bibliothèques nécessaires
+
+# Dossiers des fichiers sources et objets
+SRC_DIR = src
+OBJ_DIR = objets
+BIN_DIR = bin
+
+# Fichiers sources explicitement listés
+SRCS = $(SRC_DIR)/mnist_demo_cnn.c $(SRC_DIR)/sequential.c $(SRC_DIR)/genann.c \
+       $(SRC_DIR)/pooling.c $(SRC_DIR)/convolution.c $(SRC_DIR)/activation.c \
+       $(SRC_DIR)/flatten.c $(SRC_DIR)/tensor.c $(SRC_DIR)/mnist_db.c $(SRC_DIR)/utils.c
+
+# Fichiers objets
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+
+# Nom de l'exécutable
+EXEC = $(BIN_DIR)/demo_test_cnn
+
+# Règle par défaut
+all: $(EXEC)
+
+# Règle pour créer l'exécutable
+$(EXEC): $(OBJS)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+
+# Règle pour créer les fichiers objets
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Règle de nettoyage
+clean:
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
+
+.PHONY: all clean
