@@ -1,35 +1,44 @@
-Membres du projet:
-CANTEL Roann, AKBARINIA Daniel, POMPÉE Edouard, HEITZMANN Antoine
+# 🤖 TinyML: Machine Learning on Microcontrollers
 
-**Présentation :**
-Le projet "Apprentissage automatique avec TinyML" vise à implémenter des algorithmes de machine learning, notamment de deep learning (réseaux de neurones), sur des microcontrôleurs à faible consommation énergétique. 
-Nous développons nos modèles en langage C pour optimiser l'efficacité, la taille, la consommation, le temps d’entraînement et d'exécution. 
-En outre, le tinyML soulève différents enjeux:
-- Les enjeux sociaux incluent la confidentialité des données en traitant localement les informations et l'amélioration de l'accessibilité technologique pour les communautés marginalisées. 
-- Les enjeux environnementaux concernent la réduction de la consommation énergétique et l'application de TinyML dans des solutions écologiques et durables, comme la gestion optimisée de l'irrigation agricole.
+Welcome to the **TinyML Project**, developed at Télécom Paris by students of Proj104.  
+This project explores how to implement deep learning models — including **dense neural networks (ANN)** and **convolutional neural networks (CNN)** — on low-power microcontrollers using efficient C code and lightweight tools.
 
+We extend the functionality of the open-source library [Genann](https://github.com/codeplea/genann) by:
 
+- Adding support for the **ReLU activation function**
+- Implementing **convolutional layers**
+- Developing full **forward and backward propagation for CNNs** in C
+- Optimizing model performance (training time, precision, memory usage)
 
-**Explication de l'architecture du git :**
-- _Docker_ contient 4 sous-dossiers fonctionnant de manière indépendante grâce à des dockers.
-    - _Demo finale_ est le dossier principal qui contient les docker mettant en place le site web de démonstration. Comme expliqué dans le rapport final, l'architecture adoptée est une architecture multi-ports.
-    - _IRIS_container_ contient le docker de la première version de tests. Ce programme provient directement du git de gennan et sert de vérification pour la bonne installation de la librairie.
-    - _MNIST_container_train_, comme son nom l'indique, ce docker implémente l'entrainement avec les données de la base de données MNIST.
-    - _MNIST_run_ contient le docker qui s'occupe de lancer des prévisions à partir d'un réseau de neurones pré-entrainé.
-- _MetriquesPerformances_ rassemble les fichiers permettant de mesurer les performances du réseau. Il contient également les fichiers pythons permettant d'afficher les graphes montrés dans le rapport final.
-- _Rendus_ rassemble l'ensemble des fichiers demandés et qui composent notre projets :
-    - Les différents rapports (initial, intermédiaire et final)
-    - Le poster
-    - Les impacts sociaux et environnementaux du projet
-    - _demo_finale_ qui contient les mêmes informations que _Demo finale_ dans le dossier _Docker_, il permet de mettre en place le site web de démonstration
-- _mnist_data_ contient tout simplement les données de la base de données MNIST, ainsi que les fichiers permettant de la librairie
-- _server_ contient le serveur accessible pour la partie client et met en place la page web. Il peut être supprimé car redondant avec _demo_finale_
-- _src_ contient l'ensemble des fichiers permettant le bon fonctionnement des réseaux de neurones :
-    - la librairie gennan
-    - l'implémentation des réseaux de neurones convolutionnels
-    - la gestion des matrices par des tenseurs
-    - la manipulation des données MNIST
-    - la gestion des filtres appliqués au réseau
+The models are trained using the **MNIST** and **EMNIST** datasets and deployed using Docker containers, enabling high portability — including to devices like Raspberry Pi.
+
+## 📊 Model Optimization Results
+
+We trained and tested 361 models with various numbers of hidden layers and neurons. The best-performing models reached over **94% accuracy** with fast training.
+
+![Model Performance - Sigmoid](./README-src/performance.png)
+*Accuracy² / Training Time using Sigmoid activation*
 
 
-# tinyML
+## 🧠 CNN Implementation
+
+To boost image classification performance, we implemented **convolutional neural networks (CNN)** with multiple filters per layer.  
+We also added full **backpropagation for CNNs**, enabling learning from scratch directly on low-power devices.
+
+![Sequential CNN Diagram](./README-src/Sequential.png)
+![Sequential CNN Diagram](./README-src/architecture.png)
+*Our Sequential CNN architecture in C (inspired by LeNet)*
+
+## 🖥️ Live Demo (Dockerized)
+
+Our final demonstration is a web app that predicts handwritten characters drawn by the user.
+
+![Demo Interface](./README-src/test.png)
+*Web interface for real-time handwritten character recognition*
+
+## 📌 Project Poster
+
+Curious about the full project in one glance?  
+Check out our official poster summarizing the goals, methods, and key takeaways of TinyML:
+
+![TinyML Poster](./README-src/poster.png)

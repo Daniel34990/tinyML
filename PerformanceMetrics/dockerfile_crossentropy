@@ -1,0 +1,27 @@
+FROM alpine:3.8
+
+VOLUME /vol1/
+WORKDIR /vol1/
+
+RUN set -ex && \
+    apk add --no-cache gcc musl-dev
+
+RUN set -ex && \
+    rm -rf /usr/libexec/gcc/x86_64-alpine-linux-musl/6.4.0/cc1obj && \
+    rm -rf /usr/libexec/gcc/x86_64-alpine-linux-musl/6.4.0/lto1 && \
+    rm -rf /usr/libexec/gcc/x86_64-alpine-linux-musl/6.4.0/lto-wrapper && \
+    rm -rf /usr/bin/x86_64-alpine-linux-musl-gcj
+
+
+
+COPY src/ /vol1/
+
+#cest ici quil faut ajouter les commandes necessaires a lexecution du programme
+
+CMD gcc -c mnist_crossentropy.c && \
+    gcc -c matrix.c && \
+    gcc -c genann.c && \
+    gcc -c mnist_db.c && \
+    gcc -c metrics.c && \
+    gcc -o mnist_crossentropy metrics.o mnist_crossentropy.o matrix.o genann.o mnist_db.o -lm && \
+    ./mnist_crossentropy 2 16 "out.txt"
