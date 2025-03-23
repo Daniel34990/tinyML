@@ -16,7 +16,7 @@ The models are trained using the **MNIST** and **EMNIST** datasets and deployed 
 
 We trained and tested 361 models with various numbers of hidden layers and neurons. The best-performing models reached over **94% accuracy** with fast training.
 
-![Model Performance - Sigmoid](./README-src/performance.png)
+![Model Performance - Sigmoid](./README-src/Performance.png)
 *Accuracy² / Training Time using Sigmoid activation*
 
 
